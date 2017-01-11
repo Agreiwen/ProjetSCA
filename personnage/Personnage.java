@@ -1,4 +1,4 @@
-package perso;
+package jeu.personnage;
 
 import static communication.ex01.Society.COMMUNITY;
 import static communication.ex01.Society.GROUP;
@@ -7,6 +7,7 @@ import static communication.ex01.Society.ROLE;
 import java.awt.Dimension;
 
 import jeu.environnement.Modele;
+import jeu.environnement.Monde;
 import madkit.kernel.AbstractAgent;
 import madkit.kernel.AgentAddress;
 import madkit.kernel.Message;
@@ -46,7 +47,7 @@ public class Personnage extends AbstractAgent {
 	@Override
 	protected void activate() {
 		requestRole(Modele.MY_COMMUNITY, team, role);
-		Dimension envDim = environment.getDimension();
+		Dimension envDim =  environment.getDimension();
 		location.width = (int) (Math.random()*envDim.width);
 		location.height = (int) (Math.random()*envDim.height);
 	}
