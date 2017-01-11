@@ -3,7 +3,7 @@ package jeu.personnage;
 public class Intelligent extends Personnage{
 
 	public Intelligent(String pseudo) {
-		super(pseudo);
+		super();
 	}
 	
 	public int attaque(Personnage adversaire){
@@ -14,6 +14,24 @@ public class Intelligent extends Personnage{
 			frappe = 10;
 		}
 		return frappe;
+	}
+
+	@Override
+	protected void live() {
+		// TODO Auto-generated method stub
+		super.live();
+	}
+
+	@Override
+	protected void activate() {
+		// TODO Auto-generated method stub
+		super.activate();
+	}
+
+	@Override
+	protected void end() {
+		// TODO Auto-generated method stub
+		super.end();
 	}
 
 }

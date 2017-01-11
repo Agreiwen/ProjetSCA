@@ -3,7 +3,7 @@ package jeu.personnage;
 public class Fort extends Personnage{
 
 	public Fort(String pseudo) {
-		super(pseudo);
+		super();
 	}
 	
 	public int attaque(Personnage adversaire){

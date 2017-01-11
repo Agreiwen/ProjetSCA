@@ -2,6 +2,7 @@ package jeu.environnement;
 
 import madkit.gui.ConsoleAgent;
 import madkit.kernel.AbstractAgent;
+import madkit.kernel.Agent;
 import madkit.kernel.Madkit;
 import madkit.kernel.Scheduler;
 import madkit.simulation.activator.GenericBehaviorActivator;
@@ -18,8 +19,8 @@ import madkit.simulation.activator.GenericBehaviorActivator;
 @SuppressWarnings("serial")
 public class SchedulerJeu extends Scheduler {
 	
-	protected GenericBehaviorActivator<AbstractAgent> agents;
-	protected GenericBehaviorActivator<AbstractAgent> viewers;
+	protected GenericBehaviorActivator<Agent> agents;
+	protected GenericBehaviorActivator<Agent> viewers;
 	
 	@Override
 	protected void activate() {
@@ -32,9 +33,9 @@ public class SchedulerJeu extends Scheduler {
 		
 		// 3 : initialize the activators
 		// by default, they are activated once each in the order they have been added
-		agents = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SIMU_GROUP, Modele.AGENT_ROLE, "doIt");
+		agents = new GenericBehaviorActivator<Agent>(Modele.MY_COMMUNITY, Modele.SIMU_GROUP, Modele.AGENT_ROLE, "live");
 		addActivator(agents);
-		viewers = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SIMU_GROUP, Modele.VIEWER_ROLE, "observe");
+		viewers = new GenericBehaviorActivator<Agent>(Modele.MY_COMMUNITY, Modele.SIMU_GROUP, Modele.VIEWER_ROLE, "observe");
 		addActivator(viewers);
 		
 		setDelay(20);

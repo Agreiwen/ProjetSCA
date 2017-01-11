@@ -3,7 +3,7 @@ package jeu.personnage;
 public class Chanceux extends Personnage{
 
 	public Chanceux(String pseudo) {
-		super(pseudo);
+		super();
 	}
 	
 	public int attaque(Personnage adversaire){

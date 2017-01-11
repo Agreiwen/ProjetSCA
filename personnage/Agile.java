@@ -3,7 +3,7 @@ package jeu.personnage;
 public class Agile extends Personnage{
 
 	public Agile(String pseudo) {
-		super(pseudo);
+		super();
 	}
 
 	public int attaque(Personnage adversaire){
