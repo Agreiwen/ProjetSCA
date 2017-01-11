@@ -30,6 +30,7 @@ public class Modele extends AbstractAgent{
 		// 1 : create the simulation group
 		createGroup(MY_COMMUNITY, SIMU_GROUP);
 		createGroup(MY_COMMUNITY, BLUE_GROUP);
+		createGroup(MY_COMMUNITY, RED_GROUP);
 		// 2 : create the environment
 		Monde environment = new Monde();
 		launchAgent(environment);
