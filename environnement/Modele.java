@@ -17,7 +17,9 @@ public class Modele extends AbstractAgent{
 
 	// Organizational constants
 	public static final String MY_COMMUNITY="simu";
+	public static final String BLUE_GROUP="equipebleu";
 	public static final String SIMU_GROUP="simu";
+	public static final String RED_GROUP="equiperouge";
 	public static final String AGENT_ROLE = "agent";
 	public static final String ENV_ROLE = "environment";
 	public static final String SCH_ROLE	= "scheduler";
@@ -27,7 +29,7 @@ public class Modele extends AbstractAgent{
 	protected void activate() {
 		// 1 : create the simulation group
 		createGroup(MY_COMMUNITY, SIMU_GROUP);
-
+		createGroup(MY_COMMUNITY, BLUE_GROUP);
 		// 2 : create the environment
 		Monde environment = new Monde();
 		launchAgent(environment);

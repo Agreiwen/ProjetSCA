@@ -42,7 +42,7 @@ public class Monde extends Watcher {
 		// 2 : this probe is used to initialize the agents' environment field
 		addProbe(new AgentsProbe(
 					Modele.MY_COMMUNITY,
-					Modele.SIMU_GROUP,
+					Modele.BLUE_GROUP,
 					Modele.AGENT_ROLE, 
 					"environment"));
 	}

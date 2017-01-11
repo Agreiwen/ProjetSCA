@@ -16,12 +16,7 @@ public class Intelligent extends Personnage{
 		return frappe;
 	}
 
-	@Override
-	protected void live() {
-		// TODO Auto-generated method stub
-		super.live();
-	}
-
+	
 	@Override
 	protected void activate() {
 		// TODO Auto-generated method stub

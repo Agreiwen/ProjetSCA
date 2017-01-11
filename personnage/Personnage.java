@@ -2,15 +2,16 @@ package jeu.personnage;
 
 import java.awt.Dimension;
 
+import jeu.environnement.Modele;
 import jeu.environnement.Monde;
+import madkit.kernel.AbstractAgent;
 import madkit.kernel.Agent;
 import madkit.kernel.AgentAddress;
 import madkit.kernel.Madkit;
 import madkit.kernel.Message;
-import simulation.ex06.EnvironmentAgent;
-import simulation.ex06.MySimulationModel;
 
-public class Personnage extends Agent {
+
+public class Personnage extends AbstractAgent {
 	String pseudo;
 	int pointDeVie = 100;
 	/**
@@ -23,8 +24,8 @@ public class Personnage extends Agent {
 		this.pseudo = "perso";
 	}
 
-	@Override
-	protected void live() {
+	
+	protected void liver() {
 		Dimension envDim = environment.getDimension();
 		location.width += Math.random()*4 - 1;
 		location.height += Math.random()*4 - 1;
@@ -35,16 +36,16 @@ public class Personnage extends Agent {
 	@Override
 	protected void activate() {
 		// TODO Auto-generated method stub
-		requestRole(MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU_GROUP, MySimulationModel.AGENT_ROLE);
+		requestRole(Modele.MY_COMMUNITY, Modele.BLUE_GROUP, Modele.AGENT_ROLE);
 		Dimension envDim = environment.getDimension();
 		location.width = (int) (Math.random()*envDim.width);
 		location.height = (int) (Math.random()*envDim.height);
 	}
 
-	@Override
+/*	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
 		super.end();
-	}
+	}*/
 
 }

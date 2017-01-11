@@ -56,7 +56,7 @@ public class ViewerJeu extends SwingViewer {
 
 		// probing agents' location
 		agentsLocationProbe = new PropertyProbe<AbstractAgent, Dimension>(
-				Modele.MY_COMMUNITY, Modele.SIMU_GROUP,
+				Modele.MY_COMMUNITY, Modele.BLUE_GROUP,
 				Modele.AGENT_ROLE, "location");
 		addProbe(agentsLocationProbe);
 
