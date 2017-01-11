@@ -6,15 +6,6 @@ import madkit.kernel.AbstractAgent;
 import madkit.kernel.Watcher;
 import madkit.simulation.probe.PropertyProbe;
 
-
-/**
- * This agent is used to model a quite simple environment.
- * Nothing in it; It just defines its boundaries and uses
- * a {@link PropertyProbe} to set the agents' environment field so 
- * that they can use the environment's methods once they enter
- * the artificial society.
- * 
- */
 public class Monde extends Watcher {
 	
 	/**
@@ -33,18 +24,27 @@ public class Monde extends Watcher {
 	protected void activate() {
 		dimension = new Dimension(400, 400);
 
-		
 		// 1 : request my role so that the viewer can probe me 
 		requestRole(Modele.MY_COMMUNITY,
-				Modele.SIMU_GROUP,
+				Modele.RED,
+				Modele.ENV_ROLE);
+		
+		requestRole(Modele.MY_COMMUNITY,
+				Modele.BLUE,
 				Modele.ENV_ROLE);
 		
 		// 2 : this probe is used to initialize the agents' environment field
 		addProbe(new AgentsProbe(
 					Modele.MY_COMMUNITY,
-					Modele.BLUE_GROUP,
-					Modele.AGENT_ROLE, 
+					Modele.RED,
+					Modele.AGENT, 
 					"environment"));
+		
+		addProbe(new AgentsProbe(
+				Modele.MY_COMMUNITY,
+				Modele.BLUE,
+				Modele.AGENT, 
+				"environment"));
 	}
 
 	

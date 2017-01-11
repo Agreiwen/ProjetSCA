@@ -3,34 +3,28 @@ package jeu.environnement;
 import jeu.personnage.Personnage;
 import madkit.kernel.AbstractAgent;
 
-/**
- * 		#jws simulation.ex06.MySimulationModel jws#
- * 
- *  It is time to display something !!
- *  The only purpose of this class is to show
- *  an example of what could be a launching sequence.
- *  
- *  The display work is done in {@link Viewer}
- *  
- */
 public class Modele extends AbstractAgent{
 
 	// Organizational constants
-	public static final String MY_COMMUNITY="simu";
-	public static final String BLUE_GROUP="equipebleu";
-	public static final String SIMU_GROUP="simu";
-	public static final String RED_GROUP="equiperouge";
-	public static final String AGENT_ROLE = "agent";
-	public static final String ENV_ROLE = "environment";
-	public static final String SCH_ROLE	= "scheduler";
-	public static final String	VIEWER_ROLE	= "viewer";
+	public static final String MY_COMMUNITY	= "simu";
+	
+	public static final String RED	= "RED";
+	public static final String BLUE	= "BLUE";
+	
+	public static final String SARGE	= "sarge";
+	public static final String AGENT	= "agent";
+	
+	
+	public static final String ENV_ROLE		= "environment";
+	public static final String SCH_ROLE		= "scheduler";
+	public static final String VIEWER_ROLE	= "viewer";
 
 	@Override
 	protected void activate() {
 		// 1 : create the simulation group
-		createGroup(MY_COMMUNITY, SIMU_GROUP);
-		createGroup(MY_COMMUNITY, BLUE_GROUP);
-		createGroup(MY_COMMUNITY, RED_GROUP);
+		createGroup(MY_COMMUNITY, RED);
+		createGroup(MY_COMMUNITY, BLUE);
+
 		// 2 : create the environment
 		Monde environment = new Monde();
 		launchAgent(environment);
@@ -45,11 +39,15 @@ public class Modele extends AbstractAgent{
 
 		// 2 : launch some simulated agents
 		for (int i = 0; i < 10; i++) {
-			launchAgent(new Personnage());
+			launchAgent(new Personnage(RED, AGENT));
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			launchAgent(new Personnage(BLUE, AGENT));
 		}
 	}
 	
 	public static void main(String[] args) {
-		executeThisAgent(1,false); //no gui for me
+		executeThisAgent(1, false);
 	}
 }

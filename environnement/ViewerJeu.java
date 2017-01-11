@@ -1,15 +1,13 @@
 package jeu.environnement;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import jeu.environnement.Monde.AgentsProbe;
-
 import madkit.kernel.AbstractAgent;
+import madkit.kernel.AgentAddress;
 import madkit.kernel.Watcher;
 import madkit.simulation.probe.PropertyProbe;
 import madkit.simulation.probe.SingleAgentProbe;
@@ -31,12 +29,14 @@ public class ViewerJeu extends SwingViewer {
 	/**
 	 * The probe by which we will get the agents' location
 	 */
-	protected PropertyProbe<AbstractAgent, Dimension>	 agentsLocationProbe;
+	protected PropertyProbe<AbstractAgent, Dimension>	 agentsRED, agentsBLUE;
 
 	@Override
 	protected void activate() {
 		// 1 : request my role so that the scheduler can take me into account
-		requestRole(Modele.MY_COMMUNITY, Modele.SIMU_GROUP,
+		requestRole(Modele.MY_COMMUNITY, Modele.RED,
+				Modele.VIEWER_ROLE);
+		requestRole(Modele.MY_COMMUNITY, Modele.BLUE,
 				Modele.VIEWER_ROLE);
 
 		// 2 : adding the probes 
@@ -44,7 +44,7 @@ public class ViewerJeu extends SwingViewer {
 		// probing the environment using an anonymous inner class
 		SingleAgentProbe<Monde, Dimension> envProbe = new SingleAgentProbe<Monde, Dimension>(
 				Modele.MY_COMMUNITY, 
-				Modele.SIMU_GROUP,
+				Modele.RED,
 				Modele.ENV_ROLE, 
 				"dimension") {
 				protected void adding(Monde agent) {
@@ -55,10 +55,16 @@ public class ViewerJeu extends SwingViewer {
 		addProbe(envProbe);
 
 		// probing agents' location
-		agentsLocationProbe = new PropertyProbe<AbstractAgent, Dimension>(
-				Modele.MY_COMMUNITY, Modele.BLUE_GROUP,
-				Modele.AGENT_ROLE, "location");
-		addProbe(agentsLocationProbe);
+		agentsRED = new PropertyProbe<AbstractAgent, Dimension>(
+				Modele.MY_COMMUNITY, Modele.RED,
+				Modele.AGENT, "location");
+		
+		agentsBLUE = new PropertyProbe<AbstractAgent, Dimension>(
+				Modele.MY_COMMUNITY, Modele.BLUE,
+				Modele.AGENT, "location");
+		
+		addProbe(agentsRED);
+		addProbe(agentsBLUE);
 
 		// 3 : Now that the probes are added,
 		// we can setup the frame for the display according to the environment's properties
@@ -79,9 +85,15 @@ public class ViewerJeu extends SwingViewer {
 	@Override
 	protected void render(Graphics g) {
 		g.setColor(Color.RED);
-		for (AbstractAgent a : agentsLocationProbe.getCurrentAgentsList()) {
-			Dimension location = agentsLocationProbe.getPropertyValue(a);
-			g.drawRect(location.width, location.height, 1, 1);
+		for (AbstractAgent a : agentsRED.getCurrentAgentsList()) {
+			Dimension location = agentsRED.getPropertyValue(a);
+			g.drawRect(location.width, location.height, 3, 3);
+		}
+		
+		g.setColor(Color.BLUE);
+		for (AbstractAgent a : agentsBLUE.getCurrentAgentsList()) {
+			Dimension location = agentsBLUE.getPropertyValue(a);
+			g.drawRect(location.width, location.height, 3, 3);
 		}
 	}
 
