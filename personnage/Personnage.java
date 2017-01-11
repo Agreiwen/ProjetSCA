@@ -8,4 +8,6 @@ public class Personnage {
 		this.pseudo = pseudo;
 	}
 
+	
+	
 }
