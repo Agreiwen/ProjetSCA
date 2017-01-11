@@ -1,10 +1,16 @@
-package jeu.personnage;
+package perso;
+
+import static communication.ex01.Society.COMMUNITY;
+import static communication.ex01.Society.GROUP;
+import static communication.ex01.Society.ROLE;
 
 import java.awt.Dimension;
 
 import jeu.environnement.Modele;
-import jeu.environnement.Monde;
 import madkit.kernel.AbstractAgent;
+import madkit.kernel.AgentAddress;
+import madkit.kernel.Message;
+import madkit.kernel.AbstractAgent.ReturnCode;
 
 public class Personnage extends AbstractAgent {
 	
@@ -49,12 +55,38 @@ public class Personnage extends AbstractAgent {
 	private void action() {
 		Dimension envDim = environment.getDimension();
 		
-		environment.getAgentWithRole(Modele.MY_COMMUNITY, team, role);
+		String TeamATuer = rechercheAdversaire();
+		AgentAddress other = null;
+		while(other == null){
+			other = environment.getAgentWithRole(Modele.MY_COMMUNITY, TeamATuer, role);
+		}
+		ReturnCode code = null;
 		
+		//until I find someone having role
+		while(code != ReturnCode.SUCCESS){
+			//This will randomly choose a receiver having this role
+			code = sendMessage(COMMUNITY, GROUP, ROLE, new Message());
+			
+		}
 		location.width += Math.random()*4 - 1;
 		location.height += Math.random()*4 - 1;
 		location.width %= envDim.width;
 		location.height %= envDim.height;
+	}
+
+	private String rechercheAdversaire() {
+		String groupeatuer = "";
+		
+			// This way, I wait for another coming into play
+			if(this.team.equals("RED")){
+				groupeatuer = "BLUE";
+			}else{
+				groupeatuer = "RED";
+			}
+			
+			
+		
+		return groupeatuer;
 	}
 
 }
