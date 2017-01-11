@@ -11,8 +11,8 @@ public class Modele extends AbstractAgent{
 	public static final String RED	= "RED";
 	public static final String BLUE	= "BLUE";
 	
-	public static final String SARGE	= "sarge";
-	public static final String AGENT	= "agent";
+	public static final String SARGE = "sarge";
+	public static final String AGENT = "agent";
 	
 	
 	public static final String ENV_ROLE		= "environment";
