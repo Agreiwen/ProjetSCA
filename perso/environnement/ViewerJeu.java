@@ -1,4 +1,4 @@
-package perso;
+package perso.environnement;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,7 +19,7 @@ import madkit.simulation.viewer.SwingViewer;
  * things already defined in {@link SwingViewer}. So why not use it.
  * 
  */
-public class Viewer extends SwingViewer {
+public class ViewerJeu extends SwingViewer {
 
 	/**
 	 * environment's size, probed using a {@link SingleAgentProbe}.
@@ -34,18 +34,20 @@ public class Viewer extends SwingViewer {
 	@Override
 	protected void activate() {
 		// 1 : request my role so that the scheduler can take me into account
-		requestRole(MySimulationModel.MY_COMMUNITY, MySimulationModel.SIMU,
-				MySimulationModel.VIEWER_ROLE);
+		requestRole(Modele.MY_COMMUNITY, Modele.SOLDAT,
+				Modele.VIEWER_ROLE);
+		requestRole(Modele.MY_COMMUNITY, Modele.SOLDAT,
+				Modele.VIEWER_ROLE);
 
 		// 2 : adding the probes 
 		
 		// probing the environment using an anonymous inner class
-		SingleAgentProbe<EnvironmentAgent, Dimension> envProbe = new SingleAgentProbe<EnvironmentAgent, Dimension>(
-				MySimulationModel.MY_COMMUNITY, 
-				MySimulationModel.SIMU,
-				MySimulationModel.ENV_ROLE, 
+		SingleAgentProbe<Monde, Dimension> envProbe = new SingleAgentProbe<Monde, Dimension>(
+				Modele.MY_COMMUNITY, 
+				Modele.SOLDAT,
+				Modele.ENV_ROLE, 
 				"dimension") {
-				protected void adding(EnvironmentAgent agent) {
+				protected void adding(Monde agent) {
 					super.adding(agent);
 					envSize = getPropertyValue();
 				}
@@ -54,12 +56,12 @@ public class Viewer extends SwingViewer {
 
 		// probing agents' location
 		agentsRED = new PropertyProbe<AbstractAgent, Dimension>(
-				MySimulationModel.MY_COMMUNITY, MySimulationModel.RED,
-				MySimulationModel.AGENT, "location");
+				Modele.MY_COMMUNITY, Modele.SOLDAT,
+				Modele.AGENTBLEU, "location");
 		
 		agentsBLUE = new PropertyProbe<AbstractAgent, Dimension>(
-				MySimulationModel.MY_COMMUNITY, MySimulationModel.BLUE,
-				MySimulationModel.AGENT, "location");
+				Modele.MY_COMMUNITY, Modele.SOLDAT,
+				Modele.AGENTROUGE, "location");
 		
 		addProbe(agentsRED);
 		addProbe(agentsBLUE);
@@ -82,6 +84,7 @@ public class Viewer extends SwingViewer {
 	 */
 	@Override
 	protected void render(Graphics g) {
+		System.out.println("Je fais le rendu");
 		g.setColor(Color.RED);
 		for (AbstractAgent a : agentsRED.getCurrentAgentsList()) {
 			Dimension location = agentsRED.getPropertyValue(a);
