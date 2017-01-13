@@ -72,54 +72,19 @@ public class Personnage extends AbstractAgent {
 			}
 			//System.out.println("*************************************************");
 			nombre = 0;
-			for (String ennemi : ennemis.keySet()) {
+			/*for (String ennemi : ennemis.keySet()) {
 				System.out.println("Je suis "+this.getName()+" -> Ennemi : "+ennemi+" en ("+ennemis.get(ennemi)[0]+","+ennemis.get(ennemi)[1]+")");
-			}
+			}*/
 			
-			/* ----------------------------------------------------------------------------
-			
-			String TeamATuer = rechercheAdversaire();
-			AgentAddress other = null;
-			if (other == null) {
-				other = environment.getAgentWithRole(Modele.MY_COMMUNITY, Modele.SOLDAT, TeamATuer);
-				//System.out.println("Je suis " + this.getName() + " et j'ai trouvé " + other);
-			//	sendMessage(other, new Message());
-				sendMessage(other, new StringMessage(location.width+":"+location.height+":"+this));
-				//broadcastMessage(Modele.MY_COMMUNITY, Modele.SOLDAT, TeamATuer, new StringMessage(location.width+":"+location.height+":"+this));
-			}
-			// System.out.println("moi je sors");
-			Message m = nextMessage();
-			
-			//int cpt = 0;
-			int newwidth = location.width;
-			int newheight = location.height;
-			
-			if (m != null) {
-				StringMessage sm = (StringMessage)m;
-				System.out.println("Je suis " + this.getName() + " et mon message est : " + sm.getContent());
-				newwidth = getCoordx(sm.getContent(),newwidth);
-				newheight = getCoordy(sm.getContent(),newheight);
-				System.out.println("Je suis en x :"+location.width+" y :"+location.height);
-				System.out.println("Je vais en x :"+newwidth+" y :"+newheight);
-				//if (logger != null)
-				//	logger.info("I have to thank " + m.getSender());
-				//sendReply(m, new StringMessage("thanks"));
-				
-				
-				// TEST VIE adversaire ou kill pour test convergence
-				location.width = newwidth;
-				location.height = newheight;
-				location.width %= envDim.width;
-				location.height %= envDim.height;
-				
+			if(ennemis.size() != 0){
+				int[] plusProcheEnnemi = coordPlusProcheEnnemi();
+				deplacement(plusProcheEnnemi);
 			}else{
 				location.width += Math.random() * 4 - 1;
 				location.height += Math.random() * 4 - 1;
 				location.width %= envDim.width;
 				location.height %= envDim.height;
 			}
-			
-			System.out.println("Je bouge random");*/
 			
 		}
 	}
@@ -140,38 +105,52 @@ public class Personnage extends AbstractAgent {
 		coordonneesXY[1] = coordY;
 		ennemis.put(ennemi, coordonneesXY);
 	}
-
-	private int getCoordy(String string, int newheight) {
-		String[] Coord = string.toString().split(":");
-		int coordy = Integer.parseInt(Coord[1]);
-		//System.out.println("Je suis en y : "+coordy);
-		int newcoordy = 0;
-		if(newheight < coordy){
-			newcoordy = newheight+1;
-		}else if(newheight > coordy){
-			newcoordy = newheight-1;
+	
+	private void deplacement(int[] coordonnesEnnemi){
+		int coordEnnemiX = coordonnesEnnemi[0];
+		int coordEnnemiY = coordonnesEnnemi[1];
+		//Mise a jour X
+		if(location.width < coordEnnemiX){
+			location.width = location.width+1;
+		}else if(location.width > coordEnnemiX){
+			location.width = location.width-1;
 		}
 		else{
-			newcoordy = newheight;
+			location.width = location.width;
 		}
-		return newcoordy;
+		//Mise a jour Y
+		if(location.height < coordEnnemiY){
+			location.height = location.height+1;
+		}else if(location.height > coordEnnemiY){
+			location.height = location.height-1;
+		}
+		else{
+			location.height = location.height;
+		}
+		location.width %= environment.getDimension().width;
+		location.height %= environment.getDimension().height;
+	}
+	
+	private int[] coordPlusProcheEnnemi(){
+		int[] res = new int[2];
+		int plusProcheEnnemiX = 0;
+		int plusProcheEnnemiY = 0;
+		double distanceMin = Double.MAX_VALUE;
+		for (String ennemi : ennemis.keySet()) {
+			double distance = distance(location.width, location.height, ennemis.get(ennemi)[0], ennemis.get(ennemi)[1]);
+			if(distance < distanceMin){
+				distanceMin = distance;
+				plusProcheEnnemiX = ennemis.get(ennemi)[0];
+				plusProcheEnnemiY = ennemis.get(ennemi)[1];
+			}
+		}
+		res[0] = plusProcheEnnemiX;
+		res[1] = plusProcheEnnemiY;
+		return res;
 	}
 
-	private int getCoordx(String string, int newwidth) {
-		String[] Coord = string.toString().split(":");
-		//System.out.println("Je suis en x : "+Coord[0]);
-		int coordy = Integer.parseInt(Coord[0]);
-		//System.out.println("Je suis en x : "+coordy);
-		int newcoordy = 0;
-		if(newwidth < coordy){
-			newcoordy = newwidth+1;
-		}else if(newwidth > coordy){
-			newcoordy = newwidth-1;
-		}
-		else{
-			newcoordy = newwidth;
-		}
-		return newcoordy;
+	private double distance(int xA, int yA, int xB, int yB) {
+		return Math.sqrt((xB-xA)*(xB-xA) + (yB-yA)*(yB-yA));
 	}
 
 	private String rechercheAdversaire() {
