@@ -50,8 +50,24 @@ public class Personnage extends AbstractAgent {
 	protected void activate() {
 		requestRole(Modele.MY_COMMUNITY, team, role);
 		Dimension envDim = environment.getDimension();
-		location.width = (int) (Math.random() * envDim.width);
-		location.height = (int) (Math.random() * envDim.height);
+		int xMinBleu = 0;
+		int xMaxBleu = envDim.width;
+		int yMinBleu = 0;
+		int yMaxBleu = (envDim.height)/3;
+		
+		int xMinRouge = 0;
+		int xMaxRouge = envDim.width;
+		int yMinRouge = envDim.height - (envDim.height)/3;
+		int yMaxRouge = envDim.height;
+		
+		if(this.role.equals("AGENTBLEU")){
+			location.width = xMinBleu + (int)(Math.random() * ((xMaxBleu - xMinBleu) + 1));
+			location.height = yMinBleu + (int)(Math.random() * ((yMaxBleu - yMinBleu) + 1));
+		}else{
+			location.width = xMinRouge + (int)(Math.random() * ((xMaxRouge - xMinRouge) + 1));
+			location.height = yMinRouge + (int)(Math.random() * ((yMaxRouge - yMinRouge) + 1));
+		}
+		
 	}
 
 	//@Override
