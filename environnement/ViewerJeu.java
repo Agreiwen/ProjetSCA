@@ -33,8 +33,6 @@ public class ViewerJeu extends SwingViewer {
 		// 1 : request my role so that the scheduler can take me into account
 		requestRole(Modele.MY_COMMUNITY, Modele.SOLDAT,
 				Modele.VIEWER_ROLE);
-		requestRole(Modele.MY_COMMUNITY, Modele.SOLDAT,
-				Modele.VIEWER_ROLE);
 
 		// 2 : adding the probes 
 		

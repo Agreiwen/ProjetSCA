@@ -49,7 +49,6 @@ public class Personnage extends AbstractAgent {
 
 	//@Override
 	protected void liver() {
-		//setLogLevel(Level.FINEST);
 		Dimension envDim = environment.getDimension();
 		if(this.isAlive()) {
 			String TeamATuer = rechercheAdversaire();
@@ -117,7 +116,7 @@ public class Personnage extends AbstractAgent {
 	private int getCoordx(String string, int newwidth) {
 		String[] Coord = string.toString().split(":");
 		//System.out.println("Je suis en x : "+Coord[0]);
-		int coordy = Integer.parseInt(Coord[1]);
+		int coordy = Integer.parseInt(Coord[0]);
 		//System.out.println("Je suis en x : "+coordy);
 		int newcoordy = 0;
 		if(newwidth < coordy){

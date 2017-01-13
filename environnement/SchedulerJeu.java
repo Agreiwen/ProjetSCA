@@ -17,9 +17,6 @@ public class SchedulerJeu extends Scheduler {
 		requestRole(Modele.MY_COMMUNITY,
 				Modele.SOLDAT,
 				Modele.SCH_ROLE); 
-		requestRole(Modele.MY_COMMUNITY,
-				Modele.SOLDAT,
-				Modele.SCH_ROLE); 
 		
 		// 3 : initialize the activators
 		// by default, they are activated once each in the order they have been added

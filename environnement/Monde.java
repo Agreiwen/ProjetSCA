@@ -29,10 +29,6 @@ public class Monde extends Watcher {
 				Modele.SOLDAT,
 				Modele.ENV_ROLE);
 		
-		/*requestRole(Modele.MY_COMMUNITY,
-				Modele.BLUE,
-				Modele.ENV_ROLE);*/
-		
 		// 2 : this probe is used to initialize the agents' environment field
 		addProbe(new AgentsProbe(
 					Modele.MY_COMMUNITY,
