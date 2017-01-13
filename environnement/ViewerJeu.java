@@ -79,7 +79,7 @@ public class ViewerJeu extends SwingViewer {
 	 */
 	@Override
 	protected void render(Graphics g) {
-		System.out.println("Je fais le rendu");
+		//System.out.println("Je fais le rendu");
 		g.setColor(Color.RED);
 		for (AbstractAgent a : agentsRED.getCurrentAgentsList()) {
 			Dimension location = agentsRED.getPropertyValue(a);

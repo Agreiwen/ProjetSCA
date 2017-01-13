@@ -1,9 +1,12 @@
 package jeu.personnage;
 
 import java.awt.Dimension;
+import java.util.HashMap;
+import java.util.Map;
 
 import jeu.environnement.Modele;
 import jeu.environnement.Monde;
+import madkit.api.abstractAgent.BroadcastMessageTest;
 import madkit.kernel.AbstractAgent;
 import madkit.kernel.AgentAddress;
 import madkit.kernel.Message;
@@ -28,12 +31,16 @@ public class Personnage extends AbstractAgent {
 	 */
 	public int pas = 1;
 	private String team = "";
-
 	private String role = "";
+	
+	int nombre = 0;
+	int nbAdversaire = 10;
+	Map<String, int[]> ennemis;
 
 	public Personnage(String team, String role) {
 		this.team = team;
 		this.role = role;
+		ennemis = new HashMap<String, int[]>();
 	}
 
 	/**
@@ -51,6 +58,26 @@ public class Personnage extends AbstractAgent {
 	protected void liver() {
 		Dimension envDim = environment.getDimension();
 		if(this.isAlive()) {
+			//System.out.println("Salut, je suis "+this.getName());
+			String TeamATuer = rechercheAdversaire();
+			broadcastMessage(Modele.MY_COMMUNITY, Modele.SOLDAT, TeamATuer, new StringMessage(location.width+":"+location.height+":"+this.getName()));
+			while(nombre < nbAdversaire){
+				Message m = nextMessage();
+				if(m!=null){
+					StringMessage sm = (StringMessage)m;
+					remplirMap(sm);
+					//System.out.println(sm.getContent());
+				}
+				nombre++;
+			}
+			//System.out.println("*************************************************");
+			nombre = 0;
+			for (String ennemi : ennemis.keySet()) {
+				System.out.println("Je suis "+this.getName()+" -> Ennemi : "+ennemi+" en ("+ennemis.get(ennemi)[0]+","+ennemis.get(ennemi)[1]+")");
+			}
+			
+			/* ----------------------------------------------------------------------------
+			
 			String TeamATuer = rechercheAdversaire();
 			AgentAddress other = null;
 			if (other == null) {
@@ -92,9 +119,26 @@ public class Personnage extends AbstractAgent {
 				location.height %= envDim.height;
 			}
 			
-			System.out.println("Je bouge random");
+			System.out.println("Je bouge random");*/
 			
 		}
+	}
+
+	private void remplirMap(StringMessage sm) {
+		String s = sm.getContent();
+		//System.out.println(s);
+		String[] splitArray = s.split(":");
+		/*for (int i = 0; i < splitArray.length; i++) {
+			System.out.print(splitArray[i]+" ");
+		}*/
+		int coordX = Integer.parseInt(splitArray[0]);
+		int coordY = Integer.parseInt(splitArray[1]);
+		String ennemi = splitArray[2];
+		//System.out.println("Ennemi : "+ennemi+" en ("+coordX+","+coordY+")");
+		int[] coordonneesXY = new int[2];
+		coordonneesXY[0] = coordX;
+		coordonneesXY[1] = coordY;
+		ennemis.put(ennemi, coordonneesXY);
 	}
 
 	private int getCoordy(String string, int newheight) {
