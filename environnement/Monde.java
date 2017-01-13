@@ -26,24 +26,24 @@ public class Monde extends Watcher {
 
 		// 1 : request my role so that the viewer can probe me 
 		requestRole(Modele.MY_COMMUNITY,
-				Modele.RED,
+				Modele.SOLDAT,
 				Modele.ENV_ROLE);
 		
-		requestRole(Modele.MY_COMMUNITY,
+		/*requestRole(Modele.MY_COMMUNITY,
 				Modele.BLUE,
-				Modele.ENV_ROLE);
+				Modele.ENV_ROLE);*/
 		
 		// 2 : this probe is used to initialize the agents' environment field
 		addProbe(new AgentsProbe(
 					Modele.MY_COMMUNITY,
-					Modele.RED,
-					Modele.AGENT, 
+					Modele.SOLDAT,
+					Modele.AGENTROUGE, 
 					"environment"));
 		
 		addProbe(new AgentsProbe(
 				Modele.MY_COMMUNITY,
-				Modele.BLUE,
-				Modele.AGENT, 
+				Modele.SOLDAT,
+				Modele.AGENTBLEU, 
 				"environment"));
 	}
 

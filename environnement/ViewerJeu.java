@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JFrame;
-
 import madkit.kernel.AbstractAgent;
-import madkit.kernel.AgentAddress;
 import madkit.kernel.Watcher;
 import madkit.simulation.probe.PropertyProbe;
 import madkit.simulation.probe.SingleAgentProbe;
@@ -34,9 +31,9 @@ public class ViewerJeu extends SwingViewer {
 	@Override
 	protected void activate() {
 		// 1 : request my role so that the scheduler can take me into account
-		requestRole(Modele.MY_COMMUNITY, Modele.RED,
+		requestRole(Modele.MY_COMMUNITY, Modele.SOLDAT,
 				Modele.VIEWER_ROLE);
-		requestRole(Modele.MY_COMMUNITY, Modele.BLUE,
+		requestRole(Modele.MY_COMMUNITY, Modele.SOLDAT,
 				Modele.VIEWER_ROLE);
 
 		// 2 : adding the probes 
@@ -44,7 +41,7 @@ public class ViewerJeu extends SwingViewer {
 		// probing the environment using an anonymous inner class
 		SingleAgentProbe<Monde, Dimension> envProbe = new SingleAgentProbe<Monde, Dimension>(
 				Modele.MY_COMMUNITY, 
-				Modele.RED,
+				Modele.SOLDAT,
 				Modele.ENV_ROLE, 
 				"dimension") {
 				protected void adding(Monde agent) {
@@ -56,12 +53,12 @@ public class ViewerJeu extends SwingViewer {
 
 		// probing agents' location
 		agentsRED = new PropertyProbe<AbstractAgent, Dimension>(
-				Modele.MY_COMMUNITY, Modele.RED,
-				Modele.AGENT, "location");
+				Modele.MY_COMMUNITY, Modele.SOLDAT,
+				Modele.AGENTBLEU, "location");
 		
 		agentsBLUE = new PropertyProbe<AbstractAgent, Dimension>(
-				Modele.MY_COMMUNITY, Modele.BLUE,
-				Modele.AGENT, "location");
+				Modele.MY_COMMUNITY, Modele.SOLDAT,
+				Modele.AGENTROUGE, "location");
 		
 		addProbe(agentsRED);
 		addProbe(agentsBLUE);
@@ -84,6 +81,7 @@ public class ViewerJeu extends SwingViewer {
 	 */
 	@Override
 	protected void render(Graphics g) {
+		System.out.println("Je fais le rendu");
 		g.setColor(Color.RED);
 		for (AbstractAgent a : agentsRED.getCurrentAgentsList()) {
 			Dimension location = agentsRED.getPropertyValue(a);

@@ -8,12 +8,12 @@ public class Modele extends AbstractAgent{
 	// Organizational constants
 	public static final String MY_COMMUNITY	= "simu";
 	
-	public static final String RED	= "RED";
-	public static final String BLUE	= "BLUE";
+//	public static final String RED	= "RED";
+	public static final String SOLDAT	= "soldat";
 	
 	public static final String SARGE = "sarge";
-	public static final String AGENT = "agent";
-	
+	public static final String AGENTBLEU = "AGENTBLEU";
+	public static final String AGENTROUGE = "AGENTROUGE";
 	
 	public static final String ENV_ROLE		= "environment";
 	public static final String SCH_ROLE		= "scheduler";
@@ -22,8 +22,8 @@ public class Modele extends AbstractAgent{
 	@Override
 	protected void activate() {
 		// 1 : create the simulation group
-		createGroup(MY_COMMUNITY, RED);
-		createGroup(MY_COMMUNITY, BLUE);
+		createGroup(MY_COMMUNITY, SOLDAT);
+		//createGroup(MY_COMMUNITY, BLUE);
 
 		// 2 : create the environment
 		Monde environment = new Monde();
@@ -39,12 +39,11 @@ public class Modele extends AbstractAgent{
 
 		// 2 : launch some simulated agents
 		for (int i = 0; i < 10; i++) {
-			launchAgent(new Personnage(RED, AGENT));
+			launchAgent(new Personnage(SOLDAT, AGENTROUGE));
+			launchAgent(new Personnage(SOLDAT, AGENTBLEU));
 		}
 		
-		for (int i = 0; i < 10; i++) {
-			launchAgent(new Personnage(BLUE, AGENT));
-		}
+		
 	}
 	
 	public static void main(String[] args) {

@@ -1,8 +1,6 @@
 package jeu.environnement;
 
-import madkit.gui.ConsoleAgent;
 import madkit.kernel.AbstractAgent;
-import madkit.kernel.Madkit;
 import madkit.kernel.Scheduler;
 import madkit.simulation.activator.GenericBehaviorActivator;
 
@@ -17,22 +15,22 @@ public class SchedulerJeu extends Scheduler {
 
 		// 1 : request my role
 		requestRole(Modele.MY_COMMUNITY,
-				Modele.RED,
+				Modele.SOLDAT,
 				Modele.SCH_ROLE); 
 		requestRole(Modele.MY_COMMUNITY,
-				Modele.BLUE,
+				Modele.SOLDAT,
 				Modele.SCH_ROLE); 
 		
 		// 3 : initialize the activators
 		// by default, they are activated once each in the order they have been added
 		
-		agentsRED = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.RED, Modele.AGENT, "action");
-		agentsBLUE = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.BLUE, Modele.AGENT, "action");
+		agentsRED = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SOLDAT, Modele.AGENTBLEU, "liver");
+		agentsBLUE = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SOLDAT, Modele.AGENTROUGE, "liver");
 		
 		addActivator(agentsRED);
 		addActivator(agentsBLUE);
 		
-		viewers = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.RED, Modele.VIEWER_ROLE, "observe");
+		viewers = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SOLDAT, Modele.VIEWER_ROLE, "observe");
 		addActivator(viewers);
 		
 		setDelay(20);
