@@ -108,7 +108,7 @@ public class Personnage extends AbstractAgent {
 
 	private void tueAgent() {
 		for (String ennemi : ennemis.keySet()) {
-			if(location.width == ennemis.get(ennemi)[0] && location.height == ennemis.get(ennemi)[1] && this.role == "AGENTROUGE" && this.isAlive()){
+			if(location.width == ennemis.get(ennemi)[0] && location.height == ennemis.get(ennemi)[1] && this.isAlive()){
 				killAgent(this);
 			}
 		}
@@ -141,28 +141,28 @@ public class Personnage extends AbstractAgent {
 		if(this.role == "AGENTROUGE"){
 			//Mise a jour X
 			if(location.width < coordEnnemiX){
-				location.width = location.width-1;
+				location.width = location.width+3;
 			}else if(location.width > coordEnnemiX){
-				location.width = location.width+1;
+				location.width = location.width-3;
 			}
 			//Mise a jour Y
 			if(location.height < coordEnnemiY){
-				location.height = location.height-1;
+				location.height = location.height+3;
 			}else if(location.height > coordEnnemiY){
-				location.height = location.height+1;
+				location.height = location.height-3;
 			}
 		}else if(this.role == "AGENTBLEU"){
 			//Mise a jour X
 			if(location.width < coordEnnemiX){
-				location.width = location.width+2;
+				location.width = location.width+1;
 			}else if(location.width > coordEnnemiX){
-				location.width = location.width-2;
+				location.width = location.width-1;
 			}
 			//Mise a jour Y
 			if(location.height < coordEnnemiY){
-				location.height = location.height+2;
+				location.height = location.height+1;
 			}else if(location.height > coordEnnemiY){
-				location.height = location.height-2;
+				location.height = location.height-1;
 			}
 		}
 		

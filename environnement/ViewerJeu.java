@@ -83,13 +83,14 @@ public class ViewerJeu extends SwingViewer {
 		g.setColor(Color.RED);
 		for (AbstractAgent a : agentsRED.getCurrentAgentsList()) {
 			Dimension location = agentsRED.getPropertyValue(a);
-			g.drawRect(location.width, location.height, 3, 3);
+			g.drawOval(location.width, location.height, 5, 5);
+			//g.drawRect(location.width, location.height, 3, 3);
 		}
 		
 		g.setColor(Color.BLUE);
 		for (AbstractAgent a : agentsBLUE.getCurrentAgentsList()) {
 			Dimension location = agentsBLUE.getPropertyValue(a);
-			g.drawOval(location.width, location.height, 3, 3);
+			g.drawOval(location.width, location.height, 5, 5);
 			//g.drawRect(location.width, location.height, 3, 3);
 		}
 	}
