@@ -6,9 +6,7 @@ import java.util.Map;
 
 import jeu.environnement.Modele;
 import jeu.environnement.Monde;
-import madkit.api.abstractAgent.BroadcastMessageTest;
 import madkit.kernel.AbstractAgent;
-import madkit.kernel.AgentAddress;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
 
@@ -70,7 +68,6 @@ public class Personnage extends AbstractAgent {
 		
 		location.width = (int)(Math.random() * envDim.width);
 		location.height = (int)(Math.random() * envDim.height);
-		
 	}
 
 	//@Override
@@ -104,8 +101,21 @@ public class Personnage extends AbstractAgent {
 				location.width %= envDim.width;
 				location.height %= envDim.height;
 			}
-			
+			tueAgent();
+			effaceMap();
 		}
+	}
+
+	private void tueAgent() {
+		for (String ennemi : ennemis.keySet()) {
+			if(location.width == ennemis.get(ennemi)[0] && location.height == ennemis.get(ennemi)[1] && this.role == "AGENTROUGE" && this.isAlive()){
+				killAgent(this);
+			}
+		}
+	}
+	
+	private void effaceMap(){
+		ennemis.clear();
 	}
 
 	private void remplirMap(StringMessage sm) {
@@ -128,26 +138,39 @@ public class Personnage extends AbstractAgent {
 	private void deplacement(int[] coordonnesEnnemi){
 		int coordEnnemiX = coordonnesEnnemi[0];
 		int coordEnnemiY = coordonnesEnnemi[1];
-		//Mise a jour X
-		if(location.width < coordEnnemiX){
-			location.width = location.width+1;
-		}else if(location.width > coordEnnemiX){
-			location.width = location.width-1;
+		if(this.role == "AGENTROUGE"){
+			//Mise a jour X
+			if(location.width < coordEnnemiX){
+				location.width = location.width-1;
+			}else if(location.width > coordEnnemiX){
+				location.width = location.width+1;
+			}
+			//Mise a jour Y
+			if(location.height < coordEnnemiY){
+				location.height = location.height-1;
+			}else if(location.height > coordEnnemiY){
+				location.height = location.height+1;
+			}
+		}else if(this.role == "AGENTBLEU"){
+			//Mise a jour X
+			if(location.width < coordEnnemiX){
+				location.width = location.width+2;
+			}else if(location.width > coordEnnemiX){
+				location.width = location.width-2;
+			}
+			//Mise a jour Y
+			if(location.height < coordEnnemiY){
+				location.height = location.height+2;
+			}else if(location.height > coordEnnemiY){
+				location.height = location.height-2;
+			}
 		}
-		else{
-			location.width = location.width;
+		
+		location.width = (location.width + environment.getDimension().width) % environment.getDimension().width;
+		location.height = (location.height + environment.getDimension().height) % environment.getDimension().height;
+		if(location.width < 0 || location.width > 400){
+			System.out.println(location.width);
 		}
-		//Mise a jour Y
-		if(location.height < coordEnnemiY){
-			location.height = location.height+1;
-		}else if(location.height > coordEnnemiY){
-			location.height = location.height-1;
-		}
-		else{
-			location.height = location.height;
-		}
-		location.width %= environment.getDimension().width;
-		location.height %= environment.getDimension().height;
 	}
 	
 	private int[] coordPlusProcheEnnemi(){

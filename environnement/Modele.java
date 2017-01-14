@@ -37,6 +37,8 @@ public class Modele extends AbstractAgent{
 		// 2 : launch some simulated agents
 		for (int i = 0; i < 10; i++) {
 			launchAgent(new Personnage(SOLDAT, AGENTROUGE));
+		}
+		for (int i = 0; i < 10; i++) {
 			launchAgent(new Personnage(SOLDAT, AGENTBLEU));
 		}
 		

@@ -52,11 +52,11 @@ public class ViewerJeu extends SwingViewer {
 		// probing agents' location
 		agentsRED = new PropertyProbe<AbstractAgent, Dimension>(
 				Modele.MY_COMMUNITY, Modele.SOLDAT,
-				Modele.AGENTBLEU, "location");
+				Modele.AGENTROUGE, "location");
 		
 		agentsBLUE = new PropertyProbe<AbstractAgent, Dimension>(
 				Modele.MY_COMMUNITY, Modele.SOLDAT,
-				Modele.AGENTROUGE, "location");
+				Modele.AGENTBLEU, "location");
 		
 		addProbe(agentsRED);
 		addProbe(agentsBLUE);
@@ -89,7 +89,8 @@ public class ViewerJeu extends SwingViewer {
 		g.setColor(Color.BLUE);
 		for (AbstractAgent a : agentsBLUE.getCurrentAgentsList()) {
 			Dimension location = agentsBLUE.getPropertyValue(a);
-			g.drawRect(location.width, location.height, 3, 3);
+			g.drawOval(location.width, location.height, 3, 3);
+			//g.drawRect(location.width, location.height, 3, 3);
 		}
 	}
 

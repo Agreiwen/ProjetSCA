@@ -21,8 +21,8 @@ public class SchedulerJeu extends Scheduler {
 		// 3 : initialize the activators
 		// by default, they are activated once each in the order they have been added
 		
-		agentsRED = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SOLDAT, Modele.AGENTBLEU, "liver");
-		agentsBLUE = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SOLDAT, Modele.AGENTROUGE, "liver");
+		agentsRED = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SOLDAT, Modele.AGENTROUGE, "liver");
+		agentsBLUE = new GenericBehaviorActivator<AbstractAgent>(Modele.MY_COMMUNITY, Modele.SOLDAT, Modele.AGENTBLEU, "liver");
 		
 		addActivator(agentsRED);
 		addActivator(agentsBLUE);
