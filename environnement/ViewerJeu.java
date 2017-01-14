@@ -71,7 +71,7 @@ public class ViewerJeu extends SwingViewer {
 		// for each step of the simulation.
 		// Here it is useful because the simulation goes so fast that the agents
 		// are almost invisible
-		setSynchronousPainting(true);
+		setSynchronousPainting(false);
 	}
 
 	/**
