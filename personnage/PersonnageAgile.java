@@ -10,7 +10,7 @@ import madkit.kernel.AbstractAgent;
 import madkit.kernel.Message;
 import madkit.message.StringMessage;
 
-public class Personnage extends AbstractAgent {
+public class PersonnageAgile extends AbstractAgent {
 
 	/**
 	 * The agent's environment. Here it is just used to know its boundaries. It
@@ -32,13 +32,21 @@ public class Personnage extends AbstractAgent {
 	private String role = "";
 	
 	int nombre = 0;
-	int nbAdversaire = 10;
+	int nbAdversaire = 0;
+	int pointDeVie = 100;
+	String teamATuer;
 	Map<String, int[]> ennemis;
 
-	public Personnage(String team, String role) {
+	public PersonnageAgile(String team, String role) {
 		this.team = team;
 		this.role = role;
 		ennemis = new HashMap<String, int[]>();
+		teamATuer = rechercheAdversaire();
+		if(teamATuer == "AGENTROUGE"){
+			nbAdversaire = Modele.NB_ROUGE;
+		}else{
+			nbAdversaire = Modele.NB_BLEU;
+		}
 	}
 
 	/**
@@ -48,7 +56,7 @@ public class Personnage extends AbstractAgent {
 	protected void activate() {
 		requestRole(Modele.MY_COMMUNITY, team, role);
 		Dimension envDim = environment.getDimension();
-		/*int xMinBleu = 0;
+		int xMinBleu = 0;
 		int xMaxBleu = envDim.width;
 		int yMinBleu = 0;
 		int yMaxBleu = (envDim.height)/3;
@@ -64,10 +72,10 @@ public class Personnage extends AbstractAgent {
 		}else{
 			location.width = xMinRouge + (int)(Math.random() * ((xMaxRouge - xMinRouge) + 1));
 			location.height = yMinRouge + (int)(Math.random() * ((yMaxRouge - yMinRouge) + 1));
-		}*/
+		}
 		
-		location.width = (int)(Math.random() * envDim.width);
-		location.height = (int)(Math.random() * envDim.height);
+		/*location.width = (int)(Math.random() * envDim.width);
+		location.height = (int)(Math.random() * envDim.height);*/
 	}
 
 	//@Override
@@ -75,8 +83,7 @@ public class Personnage extends AbstractAgent {
 		Dimension envDim = environment.getDimension();
 		if(this.isAlive()) {
 			//System.out.println("Salut, je suis "+this.getName());
-			String TeamATuer = rechercheAdversaire();
-			broadcastMessage(Modele.MY_COMMUNITY, Modele.SOLDAT, TeamATuer, new StringMessage(location.width+":"+location.height+":"+this.getName()));
+			broadcastMessage(Modele.MY_COMMUNITY, Modele.SOLDAT, teamATuer, new StringMessage(location.width+":"+location.height+":"+this.getName()));
 			while(nombre < nbAdversaire){
 				Message m = nextMessage();
 				if(m!=null){
@@ -103,14 +110,18 @@ public class Personnage extends AbstractAgent {
 			}
 			tueAgent();
 			effaceMap();
+			System.out.println(this.pointDeVie);
 		}
 	}
 
 	private void tueAgent() {
 		for (String ennemi : ennemis.keySet()) {
 			if(location.width == ennemis.get(ennemi)[0] && location.height == ennemis.get(ennemi)[1] && this.isAlive()){
-				killAgent(this);
+				this.pointDeVie -= 50;
 			}
+		}
+		if(this.pointDeVie <= 0){
+			killAgent(this);
 		}
 	}
 	
@@ -141,28 +152,28 @@ public class Personnage extends AbstractAgent {
 		if(this.role == "AGENTROUGE"){
 			//Mise a jour X
 			if(location.width < coordEnnemiX){
-				location.width = location.width+3;
+				location.width = location.width+2;
 			}else if(location.width > coordEnnemiX){
-				location.width = location.width-3;
+				location.width = location.width-2;
 			}
 			//Mise a jour Y
 			if(location.height < coordEnnemiY){
-				location.height = location.height+3;
+				location.height = location.height+2;
 			}else if(location.height > coordEnnemiY){
-				location.height = location.height-3;
+				location.height = location.height-2;
 			}
 		}else if(this.role == "AGENTBLEU"){
 			//Mise a jour X
 			if(location.width < coordEnnemiX){
-				location.width = location.width+1;
+				location.width = location.width+2;
 			}else if(location.width > coordEnnemiX){
-				location.width = location.width-1;
+				location.width = location.width-2;
 			}
 			//Mise a jour Y
 			if(location.height < coordEnnemiY){
-				location.height = location.height+1;
+				location.height = location.height+2;
 			}else if(location.height > coordEnnemiY){
-				location.height = location.height-1;
+				location.height = location.height-2;
 			}
 		}
 		

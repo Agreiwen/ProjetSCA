@@ -1,6 +1,7 @@
 package jeu.environnement;
 
-import jeu.personnage.Personnage;
+import jeu.personnage.PersonnageAgile;
+import jeu.personnage.PersonnageFort;
 import madkit.kernel.AbstractAgent;
 
 public class Modele extends AbstractAgent{
@@ -16,6 +17,9 @@ public class Modele extends AbstractAgent{
 	public static final String ENV_ROLE		= "environment";
 	public static final String SCH_ROLE		= "scheduler";
 	public static final String VIEWER_ROLE	= "viewer";
+	
+	public static final int NB_ROUGE = 50;
+	public static final int NB_BLEU = 50;
 
 	@Override
 	protected void activate() {
@@ -35,11 +39,13 @@ public class Modele extends AbstractAgent{
 		launchAgent(viewer,true);
 
 		// 2 : launch some simulated agents
-		for (int i = 0; i < 30; i++) {
-			launchAgent(new Personnage(SOLDAT, AGENTROUGE));
+		for (int i = 0; i < NB_ROUGE/2; i++) {
+			launchAgent(new PersonnageFort(SOLDAT, AGENTROUGE));
+			launchAgent(new PersonnageAgile(SOLDAT, AGENTROUGE));
 		}
-		for (int i = 0; i < 30; i++) {
-			launchAgent(new Personnage(SOLDAT, AGENTBLEU));
+		for (int i = 0; i < NB_BLEU/2; i++) {
+			launchAgent(new PersonnageFort(SOLDAT, AGENTBLEU));
+			launchAgent(new PersonnageAgile(SOLDAT, AGENTBLEU));
 		}
 		
 		

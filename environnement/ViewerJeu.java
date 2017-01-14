@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import jeu.personnage.PersonnageAgile;
 import madkit.kernel.AbstractAgent;
 import madkit.kernel.Watcher;
 import madkit.simulation.probe.PropertyProbe;
@@ -83,15 +84,21 @@ public class ViewerJeu extends SwingViewer {
 		g.setColor(Color.RED);
 		for (AbstractAgent a : agentsRED.getCurrentAgentsList()) {
 			Dimension location = agentsRED.getPropertyValue(a);
-			g.drawOval(location.width, location.height, 5, 5);
-			//g.drawRect(location.width, location.height, 3, 3);
+			if(a.getClass().equals(PersonnageAgile.class)){
+				g.drawOval(location.width, location.height, 5, 5);
+			}else{
+				g.drawRect(location.width, location.height, 5, 5);
+			}
 		}
 		
 		g.setColor(Color.BLUE);
 		for (AbstractAgent a : agentsBLUE.getCurrentAgentsList()) {
 			Dimension location = agentsBLUE.getPropertyValue(a);
-			g.drawOval(location.width, location.height, 5, 5);
-			//g.drawRect(location.width, location.height, 3, 3);
+			if(a.getClass().equals(PersonnageAgile.class)){
+				g.drawOval(location.width, location.height, 5, 5);
+			}else{
+				g.drawRect(location.width, location.height, 5, 5);
+			}
 		}
 	}
 
